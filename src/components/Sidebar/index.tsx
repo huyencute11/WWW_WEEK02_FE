@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useEffect, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -19,6 +19,10 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useAppDispatch, useAppSelector } from "../../hooks/hook";
+import { getListCustomer } from "../../module/Customer/slice";
+// import { getListCustomer } from "../../apiService/customer";
+// import { getListCustomer } from "../../module/Customer/service";
 
 const drawerWidth = 240;
 
@@ -33,7 +37,12 @@ interface Props {
 
 export default function ResponsiveDrawer(props: Props) {
   const { window, children } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((state) => state.customer);
+  useEffect(() => {
+    dispatch(getListCustomer());
+  }, []);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -53,22 +62,24 @@ export default function ResponsiveDrawer(props: Props) {
             <Typography>Thong ke</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            {["San pham ban chay nhat", "doanh thu theo thang"].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+            {["San pham ban chay nhat", "doanh thu theo thang"].map(
+              (text, index) => (
+                <ListItem key={text} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              )
+            )}
           </AccordionDetails>
         </Accordion>
       </List>
       <Divider />
       <List>
-      <Accordion>
+        <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -77,21 +88,23 @@ export default function ResponsiveDrawer(props: Props) {
             <Typography>Quan ly nhan vien</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            {["Danh sach nhan vien", "Them nhan vien", "Drafts"].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+            {["Danh sach nhan vien", "Them nhan vien", "Drafts"].map(
+              (text, index) => (
+                <ListItem key={text} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              )
+            )}
           </AccordionDetails>
         </Accordion>
       </List>
       <List>
-      <Accordion>
+        <Accordion>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -100,16 +113,18 @@ export default function ResponsiveDrawer(props: Props) {
             <Typography>Quan ly khach hang</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            {["Danh sach khach hang", "Them khach hang", "Drafts"].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))}
+            {["Danh sach khach hang", "Them khach hang", "Drafts"].map(
+              (text, index) => (
+                <ListItem key={text} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              )
+            )}
           </AccordionDetails>
         </Accordion>
       </List>
