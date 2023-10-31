@@ -2,45 +2,48 @@ import React, { useEffect, useState } from "react";
 import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../hooks/hook";
-import { getListCustomer } from "../../module/Customer/slice";
+import { getListCustomer } from "../Customer/slice";
 import AppLoader from "../../components/AppLoader";
+import { getListEmployee } from "./slice";
 
-const ListCustomer = () => {
+
+// "id": 1,
+// "fullName": "Nguyen Tu Anh",
+// "dob": 1032454800000,
+// "email": "tuanh@gmail.com",
+// "phone": "0984253756",
+// "address": "Nguyen Van Bao, Go Vap",
+// "status": "ACTIVE"
+
+const ListEmployee = () => {
   const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.customer);
+  const data = useAppSelector((state) => state.employee);
   const [dataWithId, setDataWithId] = useState([]);
 
   const columns: GridColDef[] = [
     // { field: "id", headerName: "ID", width: 70 },
-    { field: "custId", headerName: "Customer ID", width: 130 },
-    { field: "custName", headerName: "Full name", width: 200 },
+    { field: "id", headerName: "Customer ID", width: 130 },
+    { field: "fullName", headerName: "Full name", width: 200 },
     { field: "email", headerName: "Email", width: 200 },
-    { field: "phone", headerName: "Phone", width: 250 },
-    {
-      field: "address",
-      headerName: "Address",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 300,
-      valueGetter: (params: GridValueGetterParams) =>
-        `${params.row.address || ""}`,
-    },
+    { field: "dob", headerName: "date of birth", width: 200 },
+    { field: "address", headerName: "Address", width: 250 },
+    // {
+    //   field: "status",
+    //   headerName: "Address",
+    //   description: "This column has a value getter and is not sortable.",
+    //   sortable: false,
+    //   width: 300,
+    //   valueGetter: (params: GridValueGetterParams) =>
+    //     `${params.row.address || ""}`,
+    // },
   ];
 
   useEffect(() => {
-    dispatch(getListCustomer());
+    dispatch(getListEmployee());
   }, []);
   useEffect(() => {
-    if (data?.statusGetDataList === "complete") {
-      const dataaaa = data?.dataListCustomer.map(
-        (item: object, index: number) => ({
-          id: index + 1,
-          ...item,
-        })
-      );
-      setDataWithId(dataaaa);
-    }
-  }, [data, dataWithId]);
+      setDataWithId(data?.dataListEmployee);
+  }, [data]);
 
   return (
     <>
@@ -64,4 +67,4 @@ const ListCustomer = () => {
   );
 };
 
-export default ListCustomer;
+export default ListEmployee;

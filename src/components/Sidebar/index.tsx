@@ -19,8 +19,7 @@ import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { useAppDispatch, useAppSelector } from "../../hooks/hook";
-import { getListCustomer } from "../../module/Customer/slice";
+
 // import { getListCustomer } from "../../apiService/customer";
 // import { getListCustomer } from "../../module/Customer/service";
 
@@ -38,11 +37,7 @@ interface Props {
 export default function ResponsiveDrawer(props: Props) {
   const { window, children } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
-  const dispatch = useAppDispatch();
-  const data = useAppSelector((state) => state.customer);
-  useEffect(() => {
-    dispatch(getListCustomer());
-  }, []);
+
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
