@@ -30,18 +30,7 @@ const ListCustomer = () => {
   useEffect(() => {
     dispatch(getListCustomer());
   }, []);
-  useEffect(() => {
-    if (data?.statusGetDataList === "complete") {
-      const dataaaa = data?.dataListCustomer.map(
-        (item: object, index: number) => ({
-          id: index + 1,
-          ...item,
-        })
-      );
-      setDataWithId(dataaaa);
-    }
-  }, [data, dataWithId]);
-
+ 
   return (
     <>
       {data?.statusGetDataList === "loading" && <AppLoader />}

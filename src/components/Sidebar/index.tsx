@@ -38,7 +38,6 @@ export default function ResponsiveDrawer(props: Props) {
   const { window, children } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
@@ -123,6 +122,56 @@ export default function ResponsiveDrawer(props: Props) {
           </AccordionDetails>
         </Accordion>
       </List>
+      <List>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>Quan ly san pham</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            {["Danh sach san pham", "Them san pham", "Drafts"].map(
+              (text, index) => (
+                <ListItem key={text} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              )
+            )}
+          </AccordionDetails>
+        </Accordion>
+      </List>
+      <List>
+        <Accordion>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>Quan ly hoa don</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            {["Danh sach hoa don", "Them hoa don"].map(
+              (text, index) => (
+                <ListItem key={text} disablePadding>
+                  <ListItemButton>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItemButton>
+                </ListItem>
+              )
+            )}
+          </AccordionDetails>
+        </Accordion>
+      </List>
     </div>
   );
 
@@ -150,7 +199,7 @@ export default function ResponsiveDrawer(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+            Quan ly ban hang
           </Typography>
         </Toolbar>
       </AppBar>

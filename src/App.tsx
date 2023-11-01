@@ -9,6 +9,8 @@ import ListCustomer from "./module/Customer/ListCustomer";
 import InsertCustomer from "./module/Customer/InsertCustomer";
 import ListEmployee from "./module/Employee/ListEmployee";
 import InsertEmployee from "./module/Employee/InsertEmployee";
+import ListOrder from "./module/Order/ListOrder";
+import InsertOrder from "./module/Order/InsertOrder";
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
           <Route path="/insert-customer" element={<InsertCustomer />} />
           <Route path="/insert-employee" element={<InsertEmployee />} />
           <Route path="/list-employee" element={<ListEmployee />} />
+          <Route path="/list-order" element={<ListOrder />} />
+          <Route path="/insert-order" element={<InsertOrder />} />
         </Routes>
       </ResponsiveDrawer>
 
