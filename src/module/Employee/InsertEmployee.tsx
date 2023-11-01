@@ -1,145 +1,147 @@
-import { useEffect, useState } from "react";
-import { FormControl, useFormControlContext } from "@mui/base/FormControl";
-import { Input, inputClasses } from "@mui/base/Input";
-import { styled } from "@mui/system";
-import clsx from "clsx";
+import * as React from "react";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
+import { useAppDispatch, useAppSelector } from "../../hooks/hook";
+import {
+  Alert,
+  Box,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  Snackbar,
+} from "@mui/material";
+import { insertEmployee } from "./slice";
 
-const InsertCustomer = () => {
+const defaultFormData = {
+  fullName: "",
+  email: "",
+  phone: "",
+  address: "",
+  dob: any,
+  status: any,
+};
+
+export default function InsertEmployee() {
+  const dispatch = useAppDispatch();
+  const [formData, setFormData] = React.useState(defaultFormData);
+  const [successOpen, setSuccessOpen] = React.useState(false);
+  const data = useAppSelector((state) => state.customer);
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    const dobDate = new Date(formData.dob);
+    const timestamp = dobDate.getTime();
+    formData.dob = timestamp;
+    dispatch(insertEmployee(formData)); // Dispatch the action with the form data
+    setFormData(defaultFormData); // Clear the form fields
+    setSuccessOpen(true);
+  };
+
+  const handleChange = (event: any) => {
+    const { name, value } = event.target;
+    setFormData({ ...formData, [name]: value });
+  };
+  const handleSuccessClose = () => {
+    setSuccessOpen(false);
+  };
+
   return (
-    <FormControl defaultValue="" required>
-      <Label>Name</Label>
-      <StyledInput placeholder="Write your name here" />
-      <HelperText />
-      <Label>Name</Label>
-      <StyledInput placeholder="Write your name here" />
-      <HelperText />
-      <Label>Name</Label>
-      <StyledInput placeholder="Write your name here" />
-      <HelperText />
-      <Label>Name</Label>
-      <StyledInput placeholder="Write your name here" />
-      <HelperText />
-    </FormControl>
-  );
-};
-export default InsertCustomer;
-const StyledInput = styled(Input)(
-  ({ theme }) => `
+    <Container component="main" maxWidth="xs">
+      <Typography component="h1" variant="h5">
+        Insert Customer
+      </Typography>
+      <form onSubmit={handleSubmit} noValidate>
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="fullName"
+          label="Full Name"
+          name="fullName"
+          autoComplete="fullName"
+          autoFocus
+          value={formData.fullName}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email"
+          name="email"
+          autoComplete="email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="phone"
+          label="Phone"
+          name="phone"
+          autoComplete="phone"
+          value={formData.phone}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          name="address"
+          label="Address"
+          id="address"
+          autoComplete="address"
+          value={formData.address}
+          onChange={handleChange}
+        />
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          name="dob"
+          label="Date of birth"
+          id="dob"
+          type="date"
+          autoComplete="dob"
+          value={formData.dob}
+          onChange={handleChange}
+        />
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="status-label">Status</InputLabel>
+            <Select
+              labelId="status-label"
+              id="status"
+              name="status"
+              value={formData.status}
+              onChange={handleChange}
+            >
+              <MenuItem value="ACTIVE">ACTIVE</MenuItem>
+              <MenuItem value="ON_LEAVE">ON_LEAVE</MenuItem>
+              <MenuItem value="TERMINATED">TERMINATED</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
 
-  .${inputClasses.input} {
-    width: 320px;
-    font-family: IBM Plex Sans, sans-serif;
-    font-size: 0.875rem;
-    font-weight: 400;
-    line-height: 1.5;
-    padding: 8px 12px;
-    border-radius: 8px;
-    color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
-    background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
-    border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
-    box-shadow: 0px 2px 2px ${
-      theme.palette.mode === "dark" ? grey[900] : grey[50]
-    };
+        <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
+          Submit
+        </Button>
+      </form>
 
-    &:hover {
-      border-color: ${blue[400]};
-    }
-
-    &:focus {
-      outline: 0;
-      border-color: ${blue[400]};
-      box-shadow: 0 0 0 3px ${
-        theme.palette.mode === "dark" ? blue[600] : blue[200]
-      };
-    }
-  }
-`
-);
-
-const Label = styled(
-  ({
-    children,
-    className,
-  }: {
-    children?: React.ReactNode;
-    className?: string;
-  }) => {
-    const formControlContext = useFormControlContext();
-    const [dirty, setDirty] = useState(false);
-
-    useEffect(() => {
-      if (formControlContext?.filled) {
-        setDirty(true);
-      }
-    }, [formControlContext]);
-
-    if (formControlContext === undefined) {
-      return <p>{children}</p>;
-    }
-
-    const { error, required, filled } = formControlContext;
-    const showRequiredError = dirty && required && !filled;
-
-    return (
-      <p
-        className={clsx(className, error || showRequiredError ? "invalid" : "")}
+      <Snackbar
+        open={successOpen}
+        autoHideDuration={4000} // Adjust the duration as needed
+        onClose={handleSuccessClose}
       >
-        {children}
-        {required ? " *" : ""}
-      </p>
-    );
-  }
-)`
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 0.875rem;
-  margin-bottom: 4px;
-
-  &.invalid {
-    color: red;
-  }
-`;
-
-const HelperText = styled((props: object) => {
-  const formControlContext = useFormControlContext();
-  const [dirty, setDirty] = useState(false);
-
-  useEffect(() => {
-    if (formControlContext?.filled) {
-      setDirty(true);
-    }
-  }, [formControlContext]);
-
-  if (formControlContext === undefined) {
-    return null;
-  }
-
-  const { required, filled } = formControlContext;
-  const showRequiredError = dirty && required && !filled;
-
-  return showRequiredError ? <p {...props}>This field is required.</p> : null;
-})`
-  font-family: "IBM Plex Sans", sans-serif;
-  font-size: 0.875rem;
-`;
-
-const blue = {
-  100: "#DAECFF",
-  200: "#b6daff",
-  400: "#3399FF",
-  500: "#007FFF",
-  600: "#0072E5",
-  900: "#003A75",
-};
-
-const grey = {
-  50: "#F3F6F9",
-  100: "#E5EAF2",
-  200: "#DAE2ED",
-  300: "#C7D0DD",
-  400: "#B0B8C4",
-  500: "#9DA8B7",
-  600: "#6B7A90",
-  700: "#434D5B",
-  800: "#303740",
-  900: "#1C2025",
-};
+        <Alert onClose={handleSuccessClose} severity="success">
+          Customer inserted successfully!
+        </Alert>
+      </Snackbar>
+    </Container>
+  );
+}

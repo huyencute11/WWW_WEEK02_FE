@@ -6,3 +6,9 @@ export const getListEmployeeService = async (query: any) => {
   );
   return response;
 };
+export const insertEmployeeService = async (data: any) => {
+  const response = axios.post(
+    `http://localhost:8081/week2/api/employees`, data
+  );
+  return response;
+};

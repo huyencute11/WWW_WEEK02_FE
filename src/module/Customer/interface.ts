@@ -1,3 +1,6 @@
 export interface dataListCustomer {
-    data: any;
+  data: any;
+}
+export interface dataInsertCustomer {
+  data: any;
 }

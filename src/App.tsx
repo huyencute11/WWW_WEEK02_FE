@@ -8,6 +8,7 @@ import ResponsiveDrawer from "./components/Sidebar";
 import ListCustomer from "./module/Customer/ListCustomer";
 import InsertCustomer from "./module/Customer/InsertCustomer";
 import ListEmployee from "./module/Employee/ListEmployee";
+import InsertEmployee from "./module/Employee/InsertEmployee";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/list-customer" element={<ListCustomer />} />
           <Route path="/insert-customer" element={<InsertCustomer />} />
+          <Route path="/insert-employee" element={<InsertEmployee />} />
           <Route path="/list-employee" element={<ListEmployee />} />
         </Routes>
       </ResponsiveDrawer>
