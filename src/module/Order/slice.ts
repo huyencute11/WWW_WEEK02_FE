@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { OrderDetail } from "./interface";
 
 export interface Order {
   dataListOrder: any;
@@ -10,6 +11,15 @@ export interface Order {
   orderDetail: any;
   statusGetOrderDetail: "idle" | "loading" | "failed" | "complete";
   messsageGetOrderDetail: string;
+  detailProduct: object;
+  statusGetDetailProduct: "idle" | "loading" | "failed" | "complete";
+  messsageGetDetailProduct: string;
+  insertOrderDetail: any;
+  statusInsertOrderDetail: "idle" | "loading" | "failed" | "complete";
+  messsageInsertOrderDetail: string;
+  dataReportOrderDaily: any,
+  statusGetReportOrderDailyList: "idle" | "loading" | "failed" | "complete";
+  messageGetReportOrderDailyList: string;
 }
 
 const initialState: Order = {
@@ -22,6 +32,15 @@ const initialState: Order = {
   orderDetail: {},
   statusGetOrderDetail: "idle",
   messsageGetOrderDetail: "",
+  detailProduct: {},
+  statusGetDetailProduct: "idle",
+  messsageGetDetailProduct: "",
+  insertOrderDetail: {},
+  statusInsertOrderDetail: "idle",
+  messsageInsertOrderDetail: "",
+  dataReportOrderDaily: {},
+  statusGetReportOrderDailyList: "idle",
+  messageGetReportOrderDailyList: "",
 };
 
 export const OrderSlice = createSlice({
@@ -63,7 +82,42 @@ export const OrderSlice = createSlice({
       state.statusGetOrderDetail = "failed";
       state.messsageGetOrderDetail = action.payload.data;
     },
-    //GET API DETAIL PACKAGE
+    //GET API DETAIL product
+    getDetailProduct: (state) => {
+      state.statusGetDetailProduct = "loading";
+    },
+    getDetailProductSuccess: (state, action: PayloadAction<{ data: any }>) => {
+      state.detailProduct = action.payload.data;
+      state.statusGetDetailProduct = "complete";
+    },
+    getDetailProductFailed: (state, action: PayloadAction<{ data: string }>) => {
+      state.statusGetDetailProduct = "failed";
+      state.messsageGetDetailProduct = action.payload.data;
+    },
+    //insert list order detail
+    insertOrderDetail: (state) => {
+      state.statusInsertOrder = "loading";
+    },
+    insertOrderDetailSuccess: (state, action: PayloadAction<{ data: any }>) => {
+      state.insertOrderDetail = action.payload.data;
+      state.statusInsertOrderDetail = "complete";
+    },
+    insertOrderDetailFailed: (state, action: PayloadAction<{ data: string }>) => {
+      state.statusInsertOrderDetail = "failed";
+      state.messsageInsertOrderDetail = action.payload.data;
+    },
+    //get report daily
+    getReportDaily: (state,  action: PayloadAction<{ data: string }>) => {
+      state.statusGetReportOrderDailyList = "loading";
+    },
+    getReportDailySuccess: (state, action: PayloadAction<{ data: any }>) => {
+      state.dataReportOrderDaily = action.payload.data;
+      state.statusGetReportOrderDailyList = "complete";
+    },
+    getReportDailyFailed: (state, action: PayloadAction<{ data: string }>) => {
+      state.statusGetReportOrderDailyList = "failed";
+      state.messageGetReportOrderDailyList = action.payload.data;
+    },
   },
 });
 
@@ -77,7 +131,16 @@ export const {
   insertOrderSuccess,
   getOrderDetail,
   getOrderDetailFailed, 
-  getOrderDetailSuccess
+  getOrderDetailSuccess,
+  getDetailProduct,
+  getDetailProductFailed, 
+  getDetailProductSuccess,
+  insertOrderDetail, 
+  insertOrderDetailFailed, 
+  insertOrderDetailSuccess,
+  getReportDaily,
+  getReportDailyFailed,
+  getReportDailySuccess
 } = OrderSlice.actions;
 // SELECTORS
 

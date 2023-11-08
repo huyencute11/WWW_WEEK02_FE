@@ -4,7 +4,6 @@ import { Box, Button, Modal, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../hooks/hook";
 import AppLoader from "../../components/AppLoader";
 import { getListOrder, getOrderDetail } from "./slice";
-import { useNavigate } from "react-router-dom";
 import OrderDetailTable from "./OrderDetailTable";
 
 // "id": 1,
@@ -51,14 +50,14 @@ const ListOrder = () => {
       field: "customer",
       headerName: "Customer",
       valueGetter: (params: GridValueGetterParams) =>
-        `${params.row.customer.custName || ""}`,
+        `${params.row?.customer?.custName || ""}`,
       width: 200,
     },
     {
       field: "employee",
       headerName: "Employee",
       valueGetter: (params: GridValueGetterParams) =>
-        `${params.row.employee.fullName || ""}`,
+        `${params.row?.employee?.fullName || ""}`,
       width: 200,
     },
     {

@@ -56,7 +56,7 @@ export default function ResponsiveDrawer(props: Props) {
             <Typography>Thong ke</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            {["San pham ban chay nhat", "doanh thu theo thang"].map(
+            {["Số lượng order theo ngày", "Số lượng order theo khoang thời gian"].map(
               (text, index) => (
                 <ListItem key={text} disablePadding>
                   <ListItemButton>
