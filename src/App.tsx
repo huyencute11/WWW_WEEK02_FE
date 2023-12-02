@@ -12,6 +12,7 @@ import InsertEmployee from "./module/Employee/InsertEmployee";
 import ListOrder from "./module/Order/ListOrder";
 import InsertOrder from "./module/Order/InsertOrder";
 import ReportOrderDaily from "./module/Order/Report";
+import ListProduct from "./module/Product/ListProduct";
 function App() {
   return (
     <BrowserRouter>
@@ -27,6 +28,7 @@ function App() {
           <Route path="/list-order" element={<ListOrder />} />
           <Route path="/insert-order" element={<InsertOrder />} />
           <Route path="/order/report-daily" element={<ReportOrderDaily />} />
+          <Route path="/list-product" element={<ListProduct />} />
         </Routes>
       </ResponsiveDrawer>
 

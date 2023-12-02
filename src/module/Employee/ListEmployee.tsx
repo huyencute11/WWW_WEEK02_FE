@@ -5,14 +5,6 @@ import { useAppDispatch, useAppSelector } from "../../hooks/hook";
 import AppLoader from "../../components/AppLoader";
 import { getListEmployee } from "./slice";
 
-// "id": 1,
-// "fullName": "Nguyen Tu Anh",
-// "dob": 1032454800000,
-// "email": "tuanh@gmail.com",
-// "phone": "0984253756",
-// "address": "Nguyen Van Bao, Go Vap",
-// "status": "ACTIVE"
-
 const ListEmployee = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.employee);

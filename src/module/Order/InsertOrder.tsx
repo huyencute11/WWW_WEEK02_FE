@@ -32,6 +32,7 @@ export default function InsertOrder() {
   const dataProductDetails = useAppSelector(
     (state) => state.order.detailProduct
   );
+  console.log('dataProductDetails', dataProductDetails)
   const [successOpen, setSuccessOpen] = useState(false);
   const [product, setProduct] = useState([]);
 
@@ -237,7 +238,7 @@ export default function InsertOrder() {
         onClose={handleSuccessClose}
       >
         <Alert onClose={handleSuccessClose} severity="success">
-          Customer inserted successfully!
+           Inserted order successfully!
         </Alert>
       </Snackbar>
     </Container>

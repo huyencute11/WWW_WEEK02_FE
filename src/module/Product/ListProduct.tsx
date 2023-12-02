@@ -3,7 +3,8 @@ import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
 import { Box } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../hooks/hook";
 import AppLoader from "../../components/AppLoader";
-import { getListEmployee } from "./slice";
+import { getDetailProductService } from "../Order/service";
+// import { getDetailProductService } from "./slice";
 
 // "id": 1,
 // "fullName": "Nguyen Tu Anh",
@@ -13,7 +14,7 @@ import { getListEmployee } from "./slice";
 // "address": "Nguyen Van Bao, Go Vap",
 // "status": "ACTIVE"
 
-const ListEmployee = () => {
+const ListProduct = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector((state) => state.employee);
   const [dataWithId, setDataWithId] = useState([]);
@@ -37,7 +38,7 @@ const ListEmployee = () => {
   ];
 
   useEffect(() => {
-    dispatch(getListEmployee());
+    // dispatch(getDetailProductService());
   }, []);
   useEffect(() => {
     setDataWithId(data?.dataListEmployee);
@@ -65,4 +66,4 @@ const ListEmployee = () => {
   );
 };
 
-export default ListEmployee;
+export default ListProduct;
